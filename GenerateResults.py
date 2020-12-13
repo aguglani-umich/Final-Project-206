@@ -14,7 +14,7 @@ vectors = []
 
 ''' FUNCTIONS '''
 
-# PURPOSE: Clean data from FetchFlights.py into a usable format
+# PURPOSE: Clean data from FetchFlights.py into a usable format. Removes all intl departures and feilds with empty values
 # INPUT: Cursor for database
 # OUTPUT: The vectors list is populated with a list of origin airports (vectors) and the accociated COVID data for those origin vectors
 
@@ -42,9 +42,9 @@ def calculateVectorItensity(cur):
         
         if(vectorScore < 20):
             flight.append("LOW")
-        elif (vectorScore < 50):
-            flight.append("MED")
         elif (vectorScore < 100):
+            flight.append("MED")
+        elif (vectorScore < 200):
             flight.append("HIGH")
         else:
             flight.append("VERY HIGH")
@@ -65,7 +65,7 @@ def outputVectorsToFile(filename):
     dir = os.path.dirname(__file__)
     outFile = open(os.path.join(dir, filename), "w")
     outFile.write("Detroit Airport Covid Vectors for 24 Hours\n")
-    outFile.write("\n\nA vector is an origin point for COVID-19 coming to the Detroit Airport.\nWe look at positivity rate of the origin for all direct flights to Detroit.\nFor each airport, we look at the frequency of flights between that airport and DTW and the associated positivity rate in the surrounding state to assign a scaled COVID score to each origin airport.\nThis allows us to show where, from around the country, COVID is coming to Detroit from.\nThen a scale is then used to classify the danger level of each associated vector.\n")
+    outFile.write("\nA vector is an origin point for COVID-19 coming to the Detroit Airport.\nWe look at positivity rate of the origin for all direct flights to Detroit.\nFor each airport, we look at the frequency of flights between that airport and DTW and the associated positivity rate in the surrounding state to assign a scaled COVID score to each origin airport.\nThis allows us to show where, from around the country, COVID is coming to Detroit from.\nThen a scale is then used to classify the danger level of each associated vector.\n")
     
     for airport in vectors:
         outFile.write(f"\nCity: {airport[4]}, Airport Code: {airport[0]}, Flight Frequency: {airport[9]}, Positiviy Rate: {airport[10]}, Vector Score: {airport[11]} , Danger level: {airport[12]}")

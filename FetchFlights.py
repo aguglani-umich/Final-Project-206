@@ -59,7 +59,7 @@ def getAirportData(code):
     except:
 
         print("Uh-Oh... we are having some trouble connecting to FlightAware")
-        return None
+        return (code, 0.0, 0.0, "--", "--", "--")
 
 # PURPOSE: Get 25 Arrivals from FlightAware Airport Arrivals Boards API
 # INPUT: This function takes in how many recent arrivals to offset from the most recent touchdown (this is rapidly changing with every landing)
@@ -102,15 +102,21 @@ def getCoronaData(state):
 
 def main():
 
+    manifest = [] # list of airports in db
     cur, conn = setUpDatabase("data.db")
     validateDatabaseCount = databaseValidation(cur)
     print("Starting at " + str(validateDatabaseCount) + "ith position in Database\n")
 
     if(validateDatabaseCount == 0):
-
+       
        cur.execute("CREATE TABLE IF NOT EXISTS Flights (flightNumber TEXT PRIMARY KEY, origin TEXT, PAXCount INTEGER)")
        cur.execute("CREATE TABLE IF NOT EXISTS Locals (code TEXT PRIMARY KEY, lng DOUBLE, lat DOUBLE, state TEXT, cityName TEXT, countryCode TEXT)")
        cur.execute("CREATE TABLE IF NOT EXISTS Corona (state TEXT PRIMARY KEY, peoplePositiveNewCasesCt INTEGER, peopleNegativeNewCt INTEGER, peopleDeathCt INTEGER)")
+    else:
+        #Find which airports we already have in DB
+        cur.execute("SELECT code FROM Locals")
+        for code in cur.fetchall():
+            manifest.append(code[0])
 
     grabFlights = flightBoardDTW(validateDatabaseCount+2)
 
@@ -122,14 +128,18 @@ def main():
         # Inject flight into database accounting for any arrivals that may land while this is being run and push the departures list back
         cur.execute("INSERT OR IGNORE INTO  Flights (flightNumber, origin, PAXCount) VALUES (?, ?, ?) ", (str(flight["ident"]), str(flight["origin"]["code"]), (int(flight.get("seats_cabin_business", "0")) + int(flight.get("seats_cabin_coach", "0")))))
         
-        #Get & Store Data about the Airport from the flight
-        airportData = getAirportData(str(flight["origin"]["code"]))
-        cur.execute("INSERT OR IGNORE INTO Locals (code, lng, lat, state, cityName, countryCode) VALUES (?, ?, ?, ?, ?, ?) ", airportData)
-        
-        #Get Corona Data for all US States that the flight originiated from. International Origins are not supported by the API and are injected into database
-        if(airportData[5] == "US"):
-            cur.execute("INSERT OR IGNORE INTO Corona (state, peoplePositiveNewCasesCt, peopleNegativeNewCt, peopleDeathCt) VALUES (?, ?, ?, ?) ", getCoronaData(airportData[3]))
-       
+        #if airport code is novel, call api for more data and then 
+
+        if (str(flight["origin"]["code"]) not in manifest):
+            #Get & Store Data about the Airport from the flight
+            airportData = getAirportData(str(flight["origin"]["code"]))
+            cur.execute("INSERT OR IGNORE INTO Locals (code, lng, lat, state, cityName, countryCode) VALUES (?, ?, ?, ?, ?, ?) ", airportData)
+            
+            #Get Corona Data for all US States that the flight originiated from. International Origins are not supported by the API and are injected into database
+            if(airportData[5] == "US"):
+                cur.execute("INSERT OR IGNORE INTO Corona (state, peoplePositiveNewCasesCt, peopleNegativeNewCt, peopleDeathCt) VALUES (?, ?, ?, ?) ", getCoronaData(airportData[3]))
+        else:
+            print("Found Data for " + str(flight["origin"]["code"]) + " in DB. Bypassing Call to save API Limit")
 
     conn.commit()
     conn.close()

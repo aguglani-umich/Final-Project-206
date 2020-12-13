@@ -59,6 +59,10 @@ def setUpDatabase(db_name):
     cur = conn.cursor()
     return cur, conn
 
+# PURPOSE: Use vectors list to print out a summary of calculated statistics
+# INPUT: The intended output file name
+# OUTPUT: A list of all the vectors and a summary of calculated statistics
+
 def outputVectorsToFile(filename):
 
     # open the output file for writing

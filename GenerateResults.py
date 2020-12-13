@@ -7,19 +7,27 @@ import re
 
 
 # GenerateResults.py
-# This peice of code combines the database tables and generates a list of COVID vectors from around the country into DTW
+# This peice of code combines the database tables and generates a list of COVID origin airport vectors from around the country into DTW
+
 ''' Data '''
 vectors = []
 
 ''' FUNCTIONS '''
 
-# PURPOSE: Join Tables
+# PURPOSE: Clean data from FetchFlights.py into a usable format
+# INPUT: Cursor for database
+# OUTPUT: The vectors list is populated with a list of origin airports (vectors) and the accociated COVID data for those origin vectors
 
 def cleanAndJoin(cur):
     cur.execute("Select Locals.code, Locals.lng, Locals.lat, Locals.state, Locals.cityName, Locals.countryCode, Corona.peoplePositiveNewCasesCt, Corona.peopleNegativeNewCt, Corona.peopleDeathCt from Locals join Corona on Locals.state = Corona.state")
     for peice in cur:
         vectors.append(list(peice))
         
+
+
+# PURPOSE: Figure out the danger level of a particular airport origin vector
+# INPUT: Cursor for the database
+# OUTPUT: The vectors list is modified with additional datafields such as frequency of flights for that vector, positivity rate, vectorScore, and Warning Label
 
 def calculateVectorItensity(cur):
 
@@ -31,8 +39,19 @@ def calculateVectorItensity(cur):
         flight.append(freq)
         flight.append(posRate)
         flight.append(vectorScore)
-        # Generate Warning Label
+        
+        if(vectorScore < 20):
+            flight.append("LOW")
+        elif (vectorScore < 50):
+            flight.append("MED")
+        elif (vectorScore < 100):
+            flight.append("HIGH")
+        else:
+            flight.append("VERY HIGH")
 
+# PURPOSE: Get connected to database
+# INPUT: The database name
+# OUTPUT: A cursor and connection
 
 def setUpDatabase(db_name):
     path = os.path.dirname(os.path.abspath(__file__))
@@ -40,11 +59,33 @@ def setUpDatabase(db_name):
     cur = conn.cursor()
     return cur, conn
 
+def outputVectorsToFile(filename):
+
+    # open the output file for writing
+    dir = os.path.dirname(__file__)
+    outFile = open(os.path.join(dir, filename), "w")
+    outFile.write("Detroit Airport Covid Vectors for 24 Hours\n")
+    outFile.write("\n\nA vector is an origin point for COVID-19 coming to the Detroit Airport.\nWe look at positivity rate of the origin for all direct flights to Detroit.\nFor each airport, we look at the frequency of flights between that airport and DTW and the associated positivity rate in the surrounding state to assign a scaled COVID score to each origin airport.\nThis allows us to show where, from around the country, COVID is coming to Detroit from.\nThen a scale is then used to classify the danger level of each associated vector.\n")
+    
+    for airport in vectors:
+        outFile.write(f"\nCity: {airport[4]}, Airport Code: {airport[0]}, Flight Frequency: {airport[9]}, Positiviy Rate: {airport[10]}, Vector Score: {airport[11]} , Danger level: {airport[12]}")
+      
+    outFile.close()
+
 def main():
+    # Connect to Database
     cur, conn, = setUpDatabase("data.db")
+
+    # Join Corona and Locals table
     cleanAndJoin(cur)
+
+    # Find origin frequency from arrivals and generate Vector Score and Danger Level
     calculateVectorItensity(cur)
-    print(vectors)
-    conn.close
+
+    # Output to Text File
+    outputVectorsToFile("Output.txt")
+    print("Output is now avalible in Output.txt")
+
+    conn.close()
 
 main()

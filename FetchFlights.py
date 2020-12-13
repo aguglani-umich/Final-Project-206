@@ -54,7 +54,7 @@ def getAirportData(code):
     try:
 
         jsonData = json.loads(data.text)["AirportInfoResult"]
-        return (str(jsonData.get("airport_code", code)), float(jsonData.get("longitude", 0.0)), float(jsonData.get("latitude", 0.0)), str(jsonData.get("state", "--")), str(jsonData.get("country_code", "--")))
+        return (str(jsonData.get("airport_code", code)), float(jsonData.get("longitude", 0.0)), float(jsonData.get("latitude", 0.0)), str(jsonData.get("state", "--")), str(jsonData.get("city", "--")), str(jsonData.get("country_code", "--")))
 
     except:
 
@@ -109,7 +109,7 @@ def main():
     if(validateDatabaseCount == 0):
 
        cur.execute("CREATE TABLE IF NOT EXISTS Flights (flightNumber TEXT PRIMARY KEY, origin TEXT, PAXCount INTEGER)")
-       cur.execute("CREATE TABLE IF NOT EXISTS Locals (code TEXT PRIMARY KEY, lng DOUBLE, lat DOUBLE, state TEXT, countryCode TEXT)")
+       cur.execute("CREATE TABLE IF NOT EXISTS Locals (code TEXT PRIMARY KEY, lng DOUBLE, lat DOUBLE, state TEXT, cityName TEXT, countryCode TEXT)")
        cur.execute("CREATE TABLE IF NOT EXISTS Corona (state TEXT PRIMARY KEY, peoplePositiveNewCasesCt INTEGER, peopleNegativeNewCt INTEGER, peopleDeathCt INTEGER)")
 
     grabFlights = flightBoardDTW(validateDatabaseCount+2)
@@ -124,10 +124,10 @@ def main():
         
         #Get & Store Data about the Airport from the flight
         airportData = getAirportData(str(flight["origin"]["code"]))
-        cur.execute("INSERT OR IGNORE INTO Locals (code, lng, lat, state, countryCode) VALUES (?, ?, ?, ?, ?) ", airportData)
+        cur.execute("INSERT OR IGNORE INTO Locals (code, lng, lat, state, cityName, countryCode) VALUES (?, ?, ?, ?, ?, ?) ", airportData)
         
         #Get Corona Data for all US States that the flight originiated from. International Origins are not supported by the API and are injected into database
-        if(airportData[4] == "US"):
+        if(airportData[5] == "US"):
             cur.execute("INSERT OR IGNORE INTO Corona (state, peoplePositiveNewCasesCt, peopleNegativeNewCt, peopleDeathCt) VALUES (?, ?, ?, ?) ", getCoronaData(airportData[3]))
        
 

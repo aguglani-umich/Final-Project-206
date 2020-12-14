@@ -12,7 +12,8 @@ import re
 
 ''' FUNCTIONS '''
 
-# PURPOSE: Figure out if the data.db database has any tables in it and if so how much data is in those tables to know how many flights from the arrivals board to offset 
+# PURPOSE: Figure out if the data.db database has any tables in it and if so how much data is in
+# those tables to know how many flights from the arrivals board to offset 
 # INPUT: The cursor to the open database
 # OUTPUT: Record Quantity
 
@@ -44,7 +45,8 @@ def setUpDatabase(db_name):
 
 # PURPOSE: Retrive additional context for the origin airport of any given flight
 # INPUT: The airport code of any given airport
-# OUTPUT: A database ready tuple of the airport code, airport longitude, airport latitude, airport state, and airport country to be used for visulizations and to get COVID-19 data
+# OUTPUT: A database ready tuple of the airport code, airport longitude, airport latitude, 
+# airport state, and airport country to be used for visulizations and to get COVID-19 data
 
 def getAirportData(code):
 
@@ -62,7 +64,8 @@ def getAirportData(code):
         return (code, 0.0, 0.0, "--", "--", "--")
 
 # PURPOSE: Get 25 Arrivals from FlightAware Airport Arrivals Boards API
-# INPUT: This function takes in how many recent arrivals to offset from the most recent touchdown (this is rapidly changing with every landing)
+# INPUT: This function takes in how many recent arrivals to offset from the most recent touchdown 
+# (this is rapidly changing with every landing)
 # OUTPUT: returns the arrivals board for the DTW airport 25 flights at a time
 
 def flightBoardDTW(offset):

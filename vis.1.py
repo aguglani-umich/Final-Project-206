@@ -66,40 +66,40 @@ def setUpDatabase(db_name):
     cur = conn.cursor()
     return cur, conn
 
+def get_cities():
 
-
-
-def get_longitudes():
-    longlist = []
+    citylist = []
     for vector in vectors:
-        longlist.append(vector[4])
+        citylist.append(vector[4])
 
-    print (longlist)
+    return citylist
 
 def get_posRate ():
     poslist = []
     for vector in vectors:
         poslist.append(vector[11])
     
-    print(poslist)
+    return poslist
 
 
-#create visual
+# PURPOSE: Use vectors list to create visual
+# INPUT: Vectors list with complete data
+# OUTPUT: Visual representation
 
-cities = ['Madison', 'Austin', 'Windsor Locks', 'Boston', 'Salt Lake City', 'Orlando', 'Los Angeles', 'Louisville', 'Harrisburg', 'Fort Lauderdale', 'Albany', 'Chicago', 'Denver', 'Appleton', 'Tampa', 'Seattle', 'Newark', 'Atlanta', 'Las Vegas', 'Philadelphia', 'New York', 'Dallas-Fort Worth', 'New York', 'Nashville', 'Washington', 'Houston', 'Kansas City', 'Iron Mountain Kingsford', 'Raleigh/Durham', 'Syracuse', 'St Louis', 'Charleston', 'San Francisco', 'Phoenix', 'Charlotte', 'Fort Myers', 'Hebron', 'Rochester', 'Traverse City', 'Bloomington/Normal', 'Portland', 'Green Bay', 'Memphis', 'Buffalo', 'San Diego', 'Burlington', 'Miami', 'Milwaukee', 'Omaha', 'Columbus', 'Indianapolis', 'Alpena', 'San Antonio', 'Pittsburgh', 'Portland', 'Saginaw', 'Grand Rapids', 'Cleveland', 'Lansing', 'Kalamazoo', 'Knoxville', 'Allentown', 'La Crosse', 'Lexington', 'Pellston', 'Elmira/Corning', 'State College', 'Ithaca', 'Dayton', 'Binghamton', 'Marquette', 'Chicago']
-posrate = [62.306943091693334, 14.511513009248567, 7.450161531794184, 26.999283838624972, 111.05646939121587, 78.20096874428806, 16.687446775476023, 27.328915034626554, 79.64131725301506, 104.26795832571743, 5.243050916234901, 49.564338931683295, 144.29364589759408, 62.306943091693334, 78.20096874428806, 26.50727650727651, 16.006314820093408, 77.19808025074276, 3743.946188340807, 238.92395175904522, 5.243050916234901, 87.0690780554914, 10.486101832469801, 45.987381703470035, 11.130210571551354, 29.023026018497134, 70.16912558474272, 10.6708647080022, 16.193462480134016, 5.243050916234901, 70.16912558474272, 10.417892878163626, 33.374893550952045, 126.29008922112371, 24.290193720201025, 78.20096874428806, 27.328915034626554, 5.243050916234901, 10.6708647080022, 9.912867786336658, 3.4188881181250617, 62.306943091693334, 30.658254468980022, 5.243050916234901, 16.687446775476023, 6.971677559912854, 52.133979162858715, 62.306943091693334, 52.17146080090242, 18.75475250751349, 129.50804928500764, 10.6708647080022, 14.511513009248567, 79.64131725301506, 10, 10.6708647080022, 10.6708647080022, 18.75475250751349, 10.6708647080022, 10.6708647080022, 15.329127234490011, 79.64131725301506, 62.306943091693334, 27.328915034626554, 10.6708647080022, 5.243050916234901, 79.64131725301506, 5.243050916234901, 18.75475250751349, 5.243050916234901, 10.6708647080022, 9.912867786336658]
+def createVis():
 
-df = pd.DataFrame(dict(cities = cities, posrate = posrate))
+    cities = get_cities()
+    posrate = get_posRate()
 
-# Use column names of df for the different parameters x, y, color, ...
-fig = px.scatter(df, x="cities", y="posrate",
-                 title="Crates",
-                 labels={"COVID positivity rates per city"} 
-                )
+    df = pd.DataFrame(dict(cities = cities, posrate = posrate))
 
-fig.show()
+    # Use column names of df for the different parameters x, y, color, ...
+    fig = px.scatter(df, x="cities", y="posrate",
+                    title="Crates",
+                    labels={"COVID positivity rates per city"} 
+                    )
 
-
+    fig.show()
     
 
 # PURPOSE: Use vectors list to print out a summary of calculated statistics
@@ -120,8 +120,6 @@ def outputVectorsToFile(filename):
     outFile.close()
 
 
-
-
 def main():
     # Connect to Database
     cur, conn, = setUpDatabase("data.db")
@@ -132,12 +130,9 @@ def main():
     # Find origin frequency from arrivals and generate Vector Score and Danger Level
     calculateVectorItensity(cur)
 
-    # Output to Text File
-    outputVectorsToFile("Output.txt")
-    print("Output is now avalible in Output.txt")
-
-    get_posRate()
-
+    # Generate Visual
+    createVis()
+    print("Visual Generated")
 
     conn.close()
 

@@ -66,69 +66,43 @@ def setUpDatabase(db_name):
     cur = conn.cursor()
     return cur, conn
 
-
-
-
-def get_longitudes():
+def get_cities():
     longlist = []
     for vector in vectors:
         longlist.append(vector[4])
 
-    print (longlist)
+    return longlist
 
 def get_flightfreq ():
     freqlist = []
     for vector in vectors:
         freqlist.append(vector[9])
     
-    print(freqlist)
+    return freqlist
 
-#create visual
+# PURPOSE: Use vectors list to create visual
+# INPUT: Vectors list with complete data
+# OUTPUT: Visual representation
 
-cities = ['Madison', 'Austin', 'Windsor Locks', 'Boston', 'Salt Lake City', 'Orlando', 'Los Angeles', 'Louisville', 'Harrisburg', 'Fort Lauderdale', 'Albany', 'Chicago', 'Denver', 'Appleton', 'Tampa', 'Seattle', 'Newark', 'Atlanta', 'Las Vegas', 'Philadelphia', 'New York', 'Dallas-Fort Worth', 'New York', 'Nashville', 'Washington', 'Houston', 'Kansas City', 'Iron Mountain Kingsford', 'Raleigh/Durham', 'Syracuse', 'St Louis', 'Charleston', 'San Francisco', 'Phoenix', 'Charlotte', 'Fort Myers', 'Hebron', 'Rochester', 'Traverse City', 'Bloomington/Normal', 'Portland', 'Green Bay', 'Memphis', 'Buffalo', 'San Diego', 'Burlington', 'Miami', 'Milwaukee', 'Omaha', 'Columbus', 'Indianapolis', 'Alpena', 'San Antonio', 'Pittsburgh', 'Portland', 'Saginaw', 'Grand Rapids', 'Cleveland', 'Lansing', 'Kalamazoo', 'Knoxville', 'Allentown', 'La Crosse', 'Lexington', 'Pellston', 'Elmira/Corning', 'State College', 'Ithaca', 'Dayton', 'Binghamton', 'Marquette', 'Chicago']
-flightfreq = [1, 1, 1, 1, 3, 3, 1, 1, 1, 4, 1, 5, 3, 1, 3, 3, 2, 5, 3, 3, 1, 6, 2, 3, 2, 2, 1, 1, 2, 1, 1, 1, 2, 3, 3, 3, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-
-df = pd.DataFrame(dict(cities = cities, flightfreq = flightfreq))
-
-# Use column names of df for the different parameters x, y, color, ...
-fig = px.bar(df, x="cities", y="flightfreq",
-                text = "flightfreq",
-                title="Calculated Flight Frequencies to DTW from other major airports",
-                 labels={'flightfreq': "Flight Frequencies"} 
-                )
-
-fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
-fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
-fig.update_layout(barmode='group', xaxis_tickangle=-45)
-
-fig.show()
-
-
-
-
-
-
+def createVisuals():
     
+    cities = get_cities()
+    flightfreq = get_flightfreq()
 
-# PURPOSE: Use vectors list to print out a summary of calculated statistics
-# INPUT: The intended output file name
-# OUTPUT: A list of all the vectors and a summary of calculated statistics
+    df = pd.DataFrame(dict(cities = cities, flightfreq = flightfreq))
 
-def outputVectorsToFile(filename):
+    # Use column names of df for the different parameters x, y, color, ...
+    fig = px.bar(df, x="cities", y="flightfreq",
+                    text = "flightfreq",
+                    title="Calculated Flight Frequencies to DTW from other major airports",
+                    labels={'flightfreq': "Flight Frequencies"} 
+                    )
 
-    # open the output file for writing
-    dir = os.path.dirname(__file__)
-    outFile = open(os.path.join(dir, filename), "w")
-    outFile.write("Detroit Airport Covid Vectors for 24 Hours\n")
-    outFile.write("\nA vector is an origin point for COVID-19 coming to the Detroit Airport.\nWe look at positivity rate of the origin for all direct flights to Detroit.\nFor each airport, we look at the frequency of flights between that airport and DTW and the associated positivity rate in the surrounding state to assign a scaled COVID score to each origin airport.\nThis allows us to show where, from around the country, COVID is coming to Detroit from.\nThen a scale is then used to classify the danger level of each associated vector.\n")
-    
-    for airport in vectors:
-        outFile.write(f"\nCity: {airport[4]}, Airport Code: {airport[0]}, Flight Frequency: {airport[9]}, Positiviy Rate: {airport[10]}, Vector Score: {airport[11]} , Danger level: {airport[12]}")
-      
-    outFile.close()
+    fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
+    fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+    fig.update_layout(barmode='group', xaxis_tickangle=-45)
 
-
-
+    fig.show()
 
 def main():
     # Connect to Database
@@ -140,12 +114,9 @@ def main():
     # Find origin frequency from arrivals and generate Vector Score and Danger Level
     calculateVectorItensity(cur)
 
-    # Output to Text File
-    outputVectorsToFile("Output.txt")
-    print("Output is now avalible in Output.txt")
-
-    get_flightfreq()
-
+    # Create Visual
+    createVisuals()
+    print("Visual Generated")
 
     conn.close()
 

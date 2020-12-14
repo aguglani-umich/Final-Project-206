@@ -1,7 +1,6 @@
 import json
 import unittest
 import os
-import requests
 import sqlite3
 import re
 
@@ -34,8 +33,14 @@ def calculateVectorItensity(cur):
     for flight in vectors:
         cur.execute("SELECT * FROM Flights WHERE origin=?", (flight[0],))
         freq = len(cur.fetchall())
-        posRate = float(flight[6])/flight[7]
-        vectorScore = freq * (float(flight[6])/flight[7]) * 100
+       
+        try:
+            posRate = float(flight[6])/flight[7]
+            vectorScore = freq * (float(flight[6])/flight[7]) * 100
+        except:
+            posRate = 0.0
+            vectorScore = 10 #fallback for 0 division
+
         flight.append(freq)
         flight.append(posRate)
         flight.append(vectorScore)

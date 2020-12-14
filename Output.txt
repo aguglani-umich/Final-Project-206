@@ -1,0 +1,79 @@
+Detroit Airport Covid Vectors for 24 Hours
+
+A vector is an origin point for COVID-19 coming to the Detroit Airport.
+We look at positivity rate of the origin for all direct flights to Detroit.
+For each airport, we look at the frequency of flights between that airport and DTW and the associated positivity rate in the surrounding state to assign a scaled COVID score to each origin airport.
+This allows us to show where, from around the country, COVID is coming to Detroit from.
+Then a scale is then used to classify the danger level of each associated vector.
+
+City: Madison, Airport Code: KMSN, Flight Frequency: 1, Positiviy Rate: 0.6230694309169333, Vector Score: 62.306943091693334 , Danger level: MED
+City: Austin, Airport Code: KAUS, Flight Frequency: 1, Positiviy Rate: 0.14511513009248567, Vector Score: 14.511513009248567 , Danger level: LOW
+City: Windsor Locks, Airport Code: KBDL, Flight Frequency: 1, Positiviy Rate: 0.07450161531794185, Vector Score: 7.450161531794184 , Danger level: LOW
+City: Boston, Airport Code: KBOS, Flight Frequency: 1, Positiviy Rate: 0.2699928383862497, Vector Score: 26.999283838624972 , Danger level: MED
+City: Salt Lake City, Airport Code: KSLC, Flight Frequency: 2, Positiviy Rate: 0.37018823130405293, Vector Score: 74.03764626081059 , Danger level: MED
+City: Orlando, Airport Code: KMCO, Flight Frequency: 3, Positiviy Rate: 0.26066989581429356, Vector Score: 78.20096874428806 , Danger level: MED
+City: Los Angeles, Airport Code: KLAX, Flight Frequency: 1, Positiviy Rate: 0.16687446775476023, Vector Score: 16.687446775476023 , Danger level: LOW
+City: Louisville, Airport Code: KSDF, Flight Frequency: 1, Positiviy Rate: 0.27328915034626555, Vector Score: 27.328915034626554 , Danger level: MED
+City: Harrisburg, Airport Code: KMDT, Flight Frequency: 1, Positiviy Rate: 0.7964131725301506, Vector Score: 79.64131725301506 , Danger level: MED
+City: Fort Lauderdale, Airport Code: KFLL, Flight Frequency: 3, Positiviy Rate: 0.26066989581429356, Vector Score: 78.20096874428806 , Danger level: MED
+City: Albany, Airport Code: KALB, Flight Frequency: 1, Positiviy Rate: 0.052430509162349, Vector Score: 5.243050916234901 , Danger level: LOW
+City: Chicago, Airport Code: KORD, Flight Frequency: 3, Positiviy Rate: 0.09912867786336658, Vector Score: 29.738603359009975 , Danger level: MED
+City: Denver, Airport Code: KDEN, Flight Frequency: 2, Positiviy Rate: 0.4809788196586469, Vector Score: 96.19576393172939 , Danger level: MED
+City: Appleton, Airport Code: KATW, Flight Frequency: 1, Positiviy Rate: 0.6230694309169333, Vector Score: 62.306943091693334 , Danger level: MED
+City: Tampa, Airport Code: KTPA, Flight Frequency: 2, Positiviy Rate: 0.26066989581429356, Vector Score: 52.133979162858715 , Danger level: MED
+City: Seattle, Airport Code: KSEA, Flight Frequency: 3, Positiviy Rate: 0.08835758835758836, Vector Score: 26.50727650727651 , Danger level: MED
+City: Newark, Airport Code: KEWR, Flight Frequency: 2, Positiviy Rate: 0.08003157410046703, Vector Score: 16.006314820093408 , Danger level: LOW
+City: Atlanta, Airport Code: KATL, Flight Frequency: 3, Positiviy Rate: 0.15439616050148552, Vector Score: 46.31884815044566 , Danger level: MED
+City: Las Vegas, Airport Code: KLAS, Flight Frequency: 3, Positiviy Rate: 12.47982062780269, Vector Score: 3743.946188340807 , Danger level: VERY HIGH
+City: Philadelphia, Airport Code: KPHL, Flight Frequency: 3, Positiviy Rate: 0.7964131725301506, Vector Score: 238.92395175904522 , Danger level: VERY HIGH
+City: New York, Airport Code: KLGA, Flight Frequency: 1, Positiviy Rate: 0.052430509162349, Vector Score: 5.243050916234901 , Danger level: LOW
+City: Dallas-Fort Worth, Airport Code: KDFW, Flight Frequency: 4, Positiviy Rate: 0.14511513009248567, Vector Score: 58.04605203699427 , Danger level: MED
+City: New York, Airport Code: KJFK, Flight Frequency: 2, Positiviy Rate: 0.052430509162349, Vector Score: 10.486101832469801 , Danger level: LOW
+City: Nashville, Airport Code: KBNA, Flight Frequency: 3, Positiviy Rate: 0.15329127234490011, Vector Score: 45.987381703470035 , Danger level: MED
+City: Washington, Airport Code: KIAD, Flight Frequency: 2, Positiviy Rate: 0.05565105285775677, Vector Score: 11.130210571551354 , Danger level: LOW
+City: Houston, Airport Code: KIAH, Flight Frequency: 1, Positiviy Rate: 0.14511513009248567, Vector Score: 14.511513009248567 , Danger level: LOW
+City: Kansas City, Airport Code: KMCI, Flight Frequency: 1, Positiviy Rate: 0.7016912558474271, Vector Score: 70.16912558474272 , Danger level: MED
+City: Iron Mountain Kingsford, Airport Code: KIMT, Flight Frequency: 1, Positiviy Rate: 0.106708647080022, Vector Score: 10.6708647080022 , Danger level: LOW
+City: Raleigh/Durham, Airport Code: KRDU, Flight Frequency: 2, Positiviy Rate: 0.08096731240067008, Vector Score: 16.193462480134016 , Danger level: LOW
+City: Syracuse, Airport Code: KSYR, Flight Frequency: 1, Positiviy Rate: 0.052430509162349, Vector Score: 5.243050916234901 , Danger level: LOW
+City: St Louis, Airport Code: KSTL, Flight Frequency: 1, Positiviy Rate: 0.7016912558474271, Vector Score: 70.16912558474272 , Danger level: MED
+City: Charleston, Airport Code: KCHS, Flight Frequency: 1, Positiviy Rate: 0.10417892878163626, Vector Score: 10.417892878163626 , Danger level: LOW
+City: San Francisco, Airport Code: KSFO, Flight Frequency: 1, Positiviy Rate: 0.16687446775476023, Vector Score: 16.687446775476023 , Danger level: LOW
+City: Phoenix, Airport Code: KPHX, Flight Frequency: 2, Positiviy Rate: 0.42096696407041234, Vector Score: 84.19339281408247 , Danger level: MED
+City: Charlotte, Airport Code: KCLT, Flight Frequency: 3, Positiviy Rate: 0.08096731240067008, Vector Score: 24.290193720201025 , Danger level: MED
+City: Fort Myers, Airport Code: KRSW, Flight Frequency: 2, Positiviy Rate: 0.26066989581429356, Vector Score: 52.133979162858715 , Danger level: MED
+City: Hebron, Airport Code: KCVG, Flight Frequency: 1, Positiviy Rate: 0.27328915034626555, Vector Score: 27.328915034626554 , Danger level: MED
+City: Rochester, Airport Code: KROC, Flight Frequency: 1, Positiviy Rate: 0.052430509162349, Vector Score: 5.243050916234901 , Danger level: LOW
+City: Traverse City, Airport Code: KTVC, Flight Frequency: 1, Positiviy Rate: 0.106708647080022, Vector Score: 10.6708647080022 , Danger level: LOW
+City: Bloomington/Normal, Airport Code: KBMI, Flight Frequency: 1, Positiviy Rate: 0.09912867786336658, Vector Score: 9.912867786336658 , Danger level: LOW
+City: Portland, Airport Code: KPWM, Flight Frequency: 1, Positiviy Rate: 0.034188881181250616, Vector Score: 3.4188881181250617 , Danger level: LOW
+City: Green Bay, Airport Code: KGRB, Flight Frequency: 1, Positiviy Rate: 0.6230694309169333, Vector Score: 62.306943091693334 , Danger level: MED
+City: Memphis, Airport Code: KMEM, Flight Frequency: 2, Positiviy Rate: 0.15329127234490011, Vector Score: 30.658254468980022 , Danger level: MED
+City: Buffalo, Airport Code: KBUF, Flight Frequency: 1, Positiviy Rate: 0.052430509162349, Vector Score: 5.243050916234901 , Danger level: LOW
+City: San Diego, Airport Code: KSAN, Flight Frequency: 1, Positiviy Rate: 0.16687446775476023, Vector Score: 16.687446775476023 , Danger level: LOW
+City: Burlington, Airport Code: KBTV, Flight Frequency: 1, Positiviy Rate: 0.06971677559912855, Vector Score: 6.971677559912854 , Danger level: LOW
+City: Miami, Airport Code: KMIA, Flight Frequency: 1, Positiviy Rate: 0.26066989581429356, Vector Score: 26.066989581429358 , Danger level: MED
+City: Milwaukee, Airport Code: KMKE, Flight Frequency: 1, Positiviy Rate: 0.6230694309169333, Vector Score: 62.306943091693334 , Danger level: MED
+City: Omaha, Airport Code: KOMA, Flight Frequency: 1, Positiviy Rate: 0.5217146080090242, Vector Score: 52.17146080090242 , Danger level: MED
+City: Columbus, Airport Code: KCMH, Flight Frequency: 1, Positiviy Rate: 0.1875475250751349, Vector Score: 18.75475250751349 , Danger level: LOW
+City: Indianapolis, Airport Code: KIND, Flight Frequency: 1, Positiviy Rate: 0.6475402464250383, Vector Score: 64.75402464250382 , Danger level: MED
+City: Alpena, Airport Code: KAPN, Flight Frequency: 1, Positiviy Rate: 0.106708647080022, Vector Score: 10.6708647080022 , Danger level: LOW
+City: San Antonio, Airport Code: KSAT, Flight Frequency: 1, Positiviy Rate: 0.14511513009248567, Vector Score: 14.511513009248567 , Danger level: LOW
+City: Pittsburgh, Airport Code: KPIT, Flight Frequency: 1, Positiviy Rate: 0.7964131725301506, Vector Score: 79.64131725301506 , Danger level: MED
+City: Portland, Airport Code: KPDX, Flight Frequency: 1, Positiviy Rate: 0.0, Vector Score: 10 , Danger level: LOW
+City: Saginaw, Airport Code: KMBS, Flight Frequency: 1, Positiviy Rate: 0.106708647080022, Vector Score: 10.6708647080022 , Danger level: LOW
+City: Grand Rapids, Airport Code: KGRR, Flight Frequency: 1, Positiviy Rate: 0.106708647080022, Vector Score: 10.6708647080022 , Danger level: LOW
+City: Cleveland, Airport Code: KCLE, Flight Frequency: 1, Positiviy Rate: 0.1875475250751349, Vector Score: 18.75475250751349 , Danger level: LOW
+City: Lansing, Airport Code: KLAN, Flight Frequency: 1, Positiviy Rate: 0.106708647080022, Vector Score: 10.6708647080022 , Danger level: LOW
+City: Kalamazoo, Airport Code: KAZO, Flight Frequency: 1, Positiviy Rate: 0.106708647080022, Vector Score: 10.6708647080022 , Danger level: LOW
+City: Knoxville, Airport Code: KTYS, Flight Frequency: 1, Positiviy Rate: 0.15329127234490011, Vector Score: 15.329127234490011 , Danger level: LOW
+City: Allentown, Airport Code: KABE, Flight Frequency: 1, Positiviy Rate: 0.7964131725301506, Vector Score: 79.64131725301506 , Danger level: MED
+City: La Crosse, Airport Code: KLSE, Flight Frequency: 1, Positiviy Rate: 0.6230694309169333, Vector Score: 62.306943091693334 , Danger level: MED
+City: Lexington, Airport Code: KLEX, Flight Frequency: 1, Positiviy Rate: 0.27328915034626555, Vector Score: 27.328915034626554 , Danger level: MED
+City: Pellston, Airport Code: KPLN, Flight Frequency: 1, Positiviy Rate: 0.106708647080022, Vector Score: 10.6708647080022 , Danger level: LOW
+City: Elmira/Corning, Airport Code: KELM, Flight Frequency: 1, Positiviy Rate: 0.052430509162349, Vector Score: 5.243050916234901 , Danger level: LOW
+City: State College, Airport Code: KUNV, Flight Frequency: 1, Positiviy Rate: 0.7964131725301506, Vector Score: 79.64131725301506 , Danger level: MED
+City: Ithaca, Airport Code: KITH, Flight Frequency: 1, Positiviy Rate: 0.052430509162349, Vector Score: 5.243050916234901 , Danger level: LOW
+City: Dayton, Airport Code: KDAY, Flight Frequency: 1, Positiviy Rate: 0.1875475250751349, Vector Score: 18.75475250751349 , Danger level: LOW
+City: Binghamton, Airport Code: KBGM, Flight Frequency: 1, Positiviy Rate: 0.052430509162349, Vector Score: 5.243050916234901 , Danger level: LOW
+City: Marquette, Airport Code: KSAW, Flight Frequency: 1, Positiviy Rate: 0.106708647080022, Vector Score: 10.6708647080022 , Danger level: LOW
